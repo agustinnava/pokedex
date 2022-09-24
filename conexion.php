@@ -15,7 +15,7 @@ class Conexion{
         $this->base = 'pokedex';
 
         //CONEXION
-        $this->conexion = new mysqli($this->servidor, $this->usuario, $this->clave, $this->base);
+        $this->conexion = new mysqli($this->servidor, $this->usuario, $this->clave, $this->base, $port = 3307);
 
         // VERIFCAMOS FALLO DE CONEXION
        /* if ($this->conexion->connect_errno) {
@@ -29,7 +29,7 @@ class Conexion{
 
     public function query ($sql){
         $result = $this->conexion->query($sql);
-        return $result->fetch_assoc();
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function __destruct(){

@@ -1,0 +1,41 @@
+CREATE SCHEMA `pokedex` ;
+USE pokedex;
+
+CREATE TABLE `pokedex`.`imagen` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `imagen` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+CREATE TABLE `pokedex`.`tipo` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `tipo` VARCHAR(100) NOT NULL,
+  PRIMARY KEY (`id`));
+  
+  CREATE TABLE pokemon (
+  numero INT NOT NULL AUTO_INCREMENT,
+  imagen INT NOT NULL,
+  tipo INT NOT NULL,
+  nombre VARCHAR(45) NOT NULL,
+  descripcion VARCHAR(1000) NOT NULL,
+  PRIMARY KEY (numero));
+
+ CREATE TABLE usuarios (
+  id INT NOT NULL AUTO_INCREMENT,
+  user VARCHAR(45) NOT NULL,
+  password VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id));
+
+ALTER TABLE tipo ADD imagen VARCHAR(40);
+
+ALTER TABLE pokemon ADD CONSTRAINT FOREIGN KEY (tipo) REFERENCES Tipo (id);
+ALTER TABLE pokemon ADD CONSTRAINT FOREIGN KEY (imagen) REFERENCES imagen (id);
+ 
+  
+  INSERT INTO usuarios (user, password) VALUES ('admin', '1234');
+  INSERT INTO usuarios (user, password) VALUES ('matias', '1234');
+  INSERT INTO usuarios (user, password) VALUES ('damian', '1234');
+  INSERT INTO usuarios (user, password) VALUES ('agustin', '1234');
+  INSERT INTO usuarios (user, password) VALUES ('arami', '1234');
+  
+ 

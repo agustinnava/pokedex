@@ -1,11 +1,11 @@
 <?php
-//require_once 'validar.php';
-/*if ($_SESSION['logeado'] == true) {
-    session_start();
-} else {
-    header('location:validar.php');
+session_start();
+if (!$_SESSION['logeado']) {
+    header('location:index.php');
     exit();
-}*/
+}
+require_once("conexion.php");
+require_once("funciones.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,19 +22,18 @@
 <body>
 <header>
     <div class="head">
-        <img src="imagenes/Pikachu-Emoji-PNG.png" width="200px"><img>
-        <img src="imagenes/pokemon-logo.png" width="250px" style="margin-left: 22em;"><img>
+        <div><img src="imagenes/Pikachu-Emoji-PNG.png" width="100px"></div>
+        <div><img src="imagenes/pokemon-logo.png" width="250px"></div>
 
-        <form action="archivosphp/validar.php" method="POST" enctype="multipart/form-data" class="form-head">
-            <input type="text" name="user" placeholder="Usuario">
-            <input type="password" name="password" placeholder="Contraseña">
-            <button type="submit">Sign in</button>
-        </form>
+        <div>
+            <p>Admin</p>
+            <a href="logout.php" class="button">Cerrar Sesion</a>
+        </div>
     </div>
 </header>
 
 <main>
-    <form action="archivosphp/buscador.php" method="POST" enctype="multipart/form-data" class="form-search">
+    <form action="buscador.php" method="POST" enctype="multipart/form-data" class="form-search">
         <input type="text" name="search" placeholder="Ingrese el nombre, tipo o número de pokemon">
         <button type="submit">¿Quién es este pokemon?</button>
     </form>
@@ -48,28 +47,27 @@
             <th>Acciones</th>
         </tr>
         </thead>
-        <!-- PHP foreach (Crud::listarResultados() as $fila) -->
+
         <tbody>
 
-        <tr>
-            <td><img src="imagenes/1200px-Vaporeon.png" ></td>
-            <td><img src="imagenes/Agua_Pokemon.png" ></td>
-            <td>1</td>
-            <td><a class="detalle" href="detalle.php">Vaporeon</a></td>
-            <td>
-                <a href="modificar.php" style="background-color: #2DA9FF">Modificar</a>
-                <a href="eliminar.php" style="background-color: #D90D32">Eliminar</a>
-            </td>
-        </tr>
+        <!-- aplicar el mismo listar que en el index.php -->
+        <?php foreach (funciones::listarPokemon() as $fila) {
+            $imagen = funciones::getImagen($fila['imagen']);
+            $tipo = funciones::getTipo($fila['tipo']);
 
-       <!-- <tr>
-            <td><?php echo $fila[0]; ?></td>
-            <td><?php echo $fila[1]; ?></td>
-            <td><?php echo $fila[2]; ?></td>
-            <td><?php echo $fila[3]; ?></td>
+            echo "<tr>
+                    <td><img src='imagenes/$imagen'></td>
+                    <td><img src='imagenes/$tipo'></td>
+                    <td>$fila[numero]</td>
+                    <td><a class='detalle' href='detalle.php?nombre=$fila[nombre]'>$fila[nombre]</a></td>
+                    <td>
+                        <a href='modificar.php?numero=$fila[numero]' style='background-color: #2DA9FF'>Modificar</a>
+                        <a href='eliminar.php?numero=$fila[numero]' style='background-color: #D90D32'>Eliminar</a>
+                    </td>
+                </tr>";
+        }
+        ?>
 
-            PHP if ($_SESSION['logeado'] == true) foreach (Crud::listarResultados() as $fila)
-        </tr>-->
         </tbody>
     </table>
 

@@ -1,4 +1,8 @@
 <?php
+require_once ("conexion.php");
+require_once ("funciones.php");
+
+$nombre = $_GET["nombre"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,21 +24,26 @@
     </header>
     <main>
         <section class="container">
-            <article>
-                <img src="imagenes/1200px-Vaporeon.png" class="pokemon" style="width: 400px">
+            <?php $pokemon = funciones::getPokemon($nombre);
+            $imagen = funciones::getImagen($pokemon['imagen']);
+            $tipo = funciones::getTipo($pokemon['tipo']);
+            echo "
+            <article class='centro'>
+                <h1>$pokemon[nombre]</h1>
+                <h2>N.°$pokemon[numero]</h2>
             </article>
-            <article>
+            <article class='flex'>
                 <div>
-                    <h1>Vaporeon</h1>
-                   <div class="tipo"><img src="imagenes/Agua_Pokemon.png" style="width: 100px"></div>
+                   <img src='imagenes/$imagen' class='pokemon' style='width: 400px'>
                 </div>
-                <div>
-                    <p>Cuando las aletas de Vaporeon comienzan a vibrar, significa que lloverá en las próximas horas.
-                        Altura: 1,0 m
-                        Peso: 29,0 kg
-                        Habilidad: Absorbe Agua</p>
+                <div class='info'>
+                    <h3>Tipo</h3>
+                    <img src='imagenes/$tipo' style='width: 100px'>
+                    <h3>Descripcion</h3>
+                    <p>$pokemon[descripcion]</p>
                 </div>
-            </article>
+            </article> ";
+            ?>
         </section>
     </main>
 </body>
